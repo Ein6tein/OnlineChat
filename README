@@ -1,1 +1,12 @@
-This file was created by IntelliJ IDEA 12.1.4 for binding GitHub repository
+This project is created on GWT.
+Created for submission for "Web application development in Java" program, in Transport and Telecommunication Institute, Riga, Latvia, 2013.
+
+This is online chat with one main chat window, where everyone will chat with each other in common chat window.
+
+User have choice: remain anonymous or login/register.
+
+Also each user can start private chat with other users.
+
+There will be 'Users online' list.
+
+Database will be used to store all registered users. Previous sessions (private chats, in particular) won't be saved.
