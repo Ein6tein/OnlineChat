@@ -4,7 +4,12 @@ import com.vaadin.event.ShortcutAction;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.ui.*;
 
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class MyVaadinApplication extends UI implements Button.ClickListener{
@@ -14,9 +19,15 @@ public class MyVaadinApplication extends UI implements Button.ClickListener{
     private TextField message;
     private TextArea chat;
     private List<String> userList = new ArrayList<String>();
+    private DateFormat format = new SimpleDateFormat("[dd-MMM-yy hh:mm:ss]    ");
 
     @Override
     public void init(VaadinRequest request) {
+        try {
+            DriverManager.getConnection("jdbc:hsqldb:mem:.", "SA", "");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         GridLayout layout = new GridLayout(2, 2);
         layout.setWidth(100, Unit.PERCENTAGE);
         layout.setHeight(100, Unit.PERCENTAGE);
@@ -77,7 +88,7 @@ public class MyVaadinApplication extends UI implements Button.ClickListener{
         if (id.equals(send.getId())) {
             if (message.getValue() != null && !message.getValue().isEmpty()) {
                 chat.setReadOnly(false);
-                chat.setValue(chat.getValue() + "\n" + message.getValue());
+                chat.setValue(chat.getValue() + "\n" + format.format(new Date()) + message.getValue());
                 chat.setReadOnly(true);
                 message.setValue("");
             }
